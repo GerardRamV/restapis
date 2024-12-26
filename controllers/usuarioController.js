@@ -1,6 +1,7 @@
 const Usuarios = require('../models/Usuarios');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 exports.registrarUsuario = async (req, res, next) => {
     try {
@@ -34,7 +35,7 @@ exports.autenticarUsuario = async (req, res, next) => {
                     nombre: usuario.nombre,
                     _id: usuario._id
                 }, 
-                'LLAVESECRETA',
+                process.env.SECRET,
                 {
                     expiresIn: '1h'
                 });

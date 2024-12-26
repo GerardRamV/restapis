@@ -1,5 +1,6 @@
 // @ts-check
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = (req, res, next) => {
 
@@ -13,7 +14,11 @@ module.exports = (req, res, next) => {
     let revisarToken;
     
     try {
-        revisarToken = jwt.verify(token, "LLAVESECRETA");
+        const secret = process.env.SECRET;
+        if (!secret) {
+            return res.status(500).json({mensaje: 'Error token'});
+        }
+        revisarToken = jwt.verify(token, secret);
     } catch (error) {
         console.log(error);
         return res.status(500).json({mensaje: 'Error token'});

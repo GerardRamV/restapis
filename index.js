@@ -5,10 +5,11 @@ const routesAuth = require('./routes/auth');
 const routesClientes = require('./routes/clientes');
 const routesProductos = require('./routes/productos');
 const routesPedidos = require('./routes/pedidos');
+require('dotenv').config();
 
 mongoose.Promise = global.Promise;
 mongoose.set("strictQuery", false);
-mongoose.connect('mongodb+srv://gerardRam:eQUOHT3kHS9mxHpv@cluster0.qvukjrv.mongodb.net/restapis', {
+mongoose.connect(process.env.MONGODB, {
     useNewUrlParser: true
 }).then(
     (m) => {
@@ -37,4 +38,4 @@ app.use('/clientes', routesClientes());
 app.use('/productos', routesProductos());
 app.use('/pedidos', routesPedidos());
 
-app.listen(4000);
+app.listen(process.env.PORT);
